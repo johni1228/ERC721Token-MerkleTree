@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 /**
- *Submitted for verification at Etherscan.io on 2022-04-11
+ *@dev a NFT contract for Longevity
+ *@author LUCKY PUNK
+ *Submitted for verification at Etherscan.io on 2022-04-30
 */
 
 pragma solidity ^0.8.0;
@@ -86,17 +88,21 @@ abstract contract ERC721P is Context, ERC165, IERC721, ERC2981Royalties, IERC721
         delete length;
         return count;
     }
+    
     function ownerOf(uint256 tokenId) public view virtual override returns (address) {
         address owner = _owners[tokenId];
         require(owner != address(0), "ERC721: owner query for nonexistent token");
         return owner;
     }
+
     function name() public view virtual override returns (string memory) {
         return _name;
     }
+
     function symbol() public view virtual override returns (string memory) {
         return _symbol;
     }
+
     function approve(address to, uint256 tokenId) public virtual override {
         address owner = ERC721P.ownerOf(tokenId);
         require(to != owner, "ERC721: approval to current owner");
@@ -108,20 +114,24 @@ abstract contract ERC721P is Context, ERC165, IERC721, ERC2981Royalties, IERC721
 
         _approve(to, tokenId);
     }
+
     function getApproved(uint256 tokenId) public view virtual override returns (address) {
         require(_exists(tokenId), "ERC721: approved query for nonexistent token");
 
         return _tokenApprovals[tokenId];
     }
+
     function setApprovalForAll(address operator, bool approved) public virtual override {
         require(operator != _msgSender(), "ERC721: approve to caller");
 
         _operatorApprovals[_msgSender()][operator] = approved;
         emit ApprovalForAll(_msgSender(), operator, approved);
     }
+
     function isApprovedForAll(address owner, address operator) public view virtual override returns (bool) {
         return _operatorApprovals[owner][operator];
     }
+
     function transferFrom(
         address from,
         address to,
@@ -132,6 +142,7 @@ abstract contract ERC721P is Context, ERC165, IERC721, ERC2981Royalties, IERC721
 
         _transfer(from, to, tokenId);
     }
+
     function safeTransferFrom(
         address from,
         address to,
@@ -139,6 +150,7 @@ abstract contract ERC721P is Context, ERC165, IERC721, ERC2981Royalties, IERC721
     ) public virtual override {
         safeTransferFrom(from, to, tokenId, "");
     }
+
     function safeTransferFrom(
         address from,
         address to,
@@ -148,6 +160,7 @@ abstract contract ERC721P is Context, ERC165, IERC721, ERC2981Royalties, IERC721
         require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721: transfer caller is not owner nor approved");
         _safeTransfer(from, to, tokenId, _data);
     }
+
     function _safeTransfer(
         address from,
         address to,
@@ -157,17 +170,21 @@ abstract contract ERC721P is Context, ERC165, IERC721, ERC2981Royalties, IERC721
         _transfer(from, to, tokenId);
         require(_checkOnERC721Received(from, to, tokenId, _data), "ERC721: transfer to non ERC721Receiver implementer");
     }
+
     function _exists(uint256 tokenId) internal view virtual returns (bool) {
         return tokenId < _owners.length && _owners[tokenId] != address(0);
     }
+
     function _isApprovedOrOwner(address spender, uint256 tokenId) internal view virtual returns (bool) {
         require(_exists(tokenId), "ERC721: operator query for nonexistent token");
         address owner = ERC721P.ownerOf(tokenId);
         return (spender == owner || getApproved(tokenId) == spender || isApprovedForAll(owner, spender));
     }
+
     function _safeMint(address to, uint256 tokenId) internal virtual {
         _safeMint(to, tokenId, "");
     }
+
     function _safeMint(
         address to,
         uint256 tokenId,
@@ -179,6 +196,7 @@ abstract contract ERC721P is Context, ERC165, IERC721, ERC2981Royalties, IERC721
             "ERC721: transfer to non ERC721Receiver implementer"
         );
     }
+
     function _mint(address to, uint256 tokenId) internal virtual {
         require(to != address(0), "ERC721: mint to the zero address");
         require(!_exists(tokenId), "ERC721: token already minted");
@@ -188,6 +206,7 @@ abstract contract ERC721P is Context, ERC165, IERC721, ERC2981Royalties, IERC721
 
         emit Transfer(address(0), to, tokenId);
     }
+
     function _burn(uint256 tokenId) internal virtual {
         address owner = ERC721P.ownerOf(tokenId);
 
@@ -199,6 +218,7 @@ abstract contract ERC721P is Context, ERC165, IERC721, ERC2981Royalties, IERC721
 
         emit Transfer(owner, address(0), tokenId);
     }
+
     function _transfer(
         address from,
         address to,
@@ -215,10 +235,12 @@ abstract contract ERC721P is Context, ERC165, IERC721, ERC2981Royalties, IERC721
 
         emit Transfer(from, to, tokenId);
     }
+
     function _approve(address to, uint256 tokenId) internal virtual {
         _tokenApprovals[tokenId] = to;
         emit Approval(ERC721P.ownerOf(tokenId), to, tokenId);
     }
+
     function _checkOnERC721Received(
         address from,
         address to,
@@ -241,6 +263,7 @@ abstract contract ERC721P is Context, ERC165, IERC721, ERC2981Royalties, IERC721
             return true;
         }
     }
+
     function _beforeTokenTransfer(
         address from,
         address to,
@@ -317,32 +340,11 @@ library MerkleProof {
 contract LGV is ERC721Enum, Ownable, ReentrancyGuard{
     using Strings for uint256;
 	
-    uint256 public SALE_NFT = 7950;
-	uint256 public GIVEAWAY_NFT = 58;
-	
-	uint256 public MAX_MINT_PRESALE = 5;
-	uint256 public MAX_MINT_SALE = 7950;
-	
-	uint256 public MAX_BY_MINT_IN_TRANSACTION_PRESALE = 5;
-	uint256 public MAX_BY_MINT_IN_TRANSACTION_SALE = 20;
-	
-	uint256 public PRESALE_PRICE = 0.05 ether;
-	uint256 public SALE_PRICE = 0.08 ether;
-	
-	uint256 public SALE_MINTED;
-	uint256 public GIVEAWAY_MINTED;
-	
-    bool public presaleEnable = false;
-	bool public saleEnable = false;
+    uint256 public TOTALSUPPLY = 78; 
+	uint256 public PRICE = 0.0015 ether;
 	
     string private baseURI;
 	bytes32 public merkleRoot;
-	
-	struct User {
-		uint256 presalemint;
-		uint256 salemint;
-    }
-	mapping (address => User) public users;
 
     constructor() ERC721P("Longevity", "LGV") {
 	}
@@ -351,27 +353,11 @@ contract LGV is ERC721Enum, Ownable, ReentrancyGuard{
         return baseURI;
     }
 	
-	// function mintGiveawayNFT(address _to, uint256 _count) public onlyOwner{
-	//     uint256 totalSupply = totalSupply();
-    //     require(
-    //         GIVEAWAY_MINTED + _count <= GIVEAWAY_NFT, 
-    //         "Max limit"
-    //     );
-	// 	for (uint256 i = 0; i < _count; i++) {
-    //         _safeMint(_to, totalSupply + i);
-	// 		GIVEAWAY_MINTED++;
-    //     }
-    // }
-	
-	function mintPreSaleNFT(uint256 _count, bytes32[] calldata merkleProof) public payable{
+	function mint(bytes32[] calldata merkleProof) public payable{
 		bytes32 node = keccak256(abi.encodePacked(msg.sender));
 		uint256 totalSupply = totalSupply();
-		require(
-			presaleEnable, 
-			"Pre-sale is not enable"
-		);
         require(
-			SALE_MINTED + _count <= SALE_NFT, 
+			totalSupply + 1 <= TOTALSUPPLY, 
 			"Exceeds max limit"
 		);
 		require(
@@ -379,51 +365,12 @@ contract LGV is ERC721Enum, Ownable, ReentrancyGuard{
 			"MerkleDistributor: Invalid proof."
 		);
 		require(
-			users[msg.sender].presalemint + _count <= MAX_MINT_PRESALE,
-			"Exceeds max mint limit per wallet"
-		);
-		require(
-			_count <= MAX_BY_MINT_IN_TRANSACTION_PRESALE,
-			"Exceeds max mint limit per txn"
-		);
-		require(
-			msg.value >= PRESALE_PRICE * _count,
+			msg.value >= PRICE,
 			"Value below price"
 		);
-		for (uint256 i = 0; i < _count; i++) {
-            _safeMint(msg.sender, totalSupply + i);
-			SALE_MINTED++;
-        }
-		users[msg.sender].presalemint = users[msg.sender].presalemint + _count;
-    }
-	
-	function mintSaleNFT(uint256 _count) public payable{
-		uint256 totalSupply = totalSupply();
-		require(
-			saleEnable, 
-			"Sale is not enable"
-		);
-        require(
-			SALE_MINTED + _count <= SALE_NFT, 
-			"Exceeds max limit"
-		);
-		require(
-			users[msg.sender].salemint + _count <= MAX_MINT_SALE,
-			"Exceeds max mint limit per wallet"
-		);
-		require(
-			_count <= MAX_BY_MINT_IN_TRANSACTION_SALE,
-			"Exceeds max mint limit per txn"
-		);
-		require(
-			msg.value >= SALE_PRICE * _count,
-			"Value below price"
-		);
-		for (uint256 i = 0; i < _count; i++) {
-            _safeMint(msg.sender, totalSupply + i);
-			SALE_MINTED++;
-        }
-		users[msg.sender].salemint = users[msg.sender].salemint + _count;
+
+        _safeMint(msg.sender, totalSupply);
+        
     }
 	
     function tokenURI(uint256 _tokenId) external view virtual override returns (string memory) {
@@ -449,52 +396,13 @@ contract LGV is ERC721Enum, Ownable, ReentrancyGuard{
         baseURI = newBaseURI;
     }
 	
-	function updateSalePrice(uint256 newPrice) external onlyOwner {
-        SALE_PRICE = newPrice;
+	function updatePrice(uint256 newPrice) external onlyOwner {
+        PRICE = newPrice;
     }
 	
-	function updatePreSalePrice(uint256 newPrice) external onlyOwner {
-        PRESALE_PRICE = newPrice;
-    }
-	
-	function setSaleStatus(bool status) public onlyOwner {
-        require(saleEnable != status, "Incorrect value");
-		saleEnable = status;
-    }
-	
-	function setPreSaleStatus(bool status) public onlyOwner {
-	   require(presaleEnable != status, "Incorrect value");
-       presaleEnable = status;
-    }
-	
-	function updateSaleMintLimit(uint256 newLimit) external onlyOwner {
-	    require(SALE_NFT >= newLimit, "Incorrect value");
-        MAX_MINT_SALE = newLimit;
-    }
-	
-	function updatePreSaleMintLimit(uint256 newLimit) external onlyOwner {
-	    require(SALE_NFT >= newLimit, "Incorrect value");
-        MAX_MINT_PRESALE = newLimit;
-    }
-	
-	function updateSaleSupply(uint256 newSupply) external onlyOwner {
-	    require(newSupply >= SALE_MINTED, "Incorrect value");
-        SALE_NFT = newSupply;
-    }
-	
-	function updateGiveawaySupply(uint256 newSupply) external onlyOwner {
-	    require(newSupply >= GIVEAWAY_MINTED, "Incorrect value");
-        GIVEAWAY_NFT = newSupply;
-    }
-	
-	function updateMintLimitPerTransectionPreSale(uint256 newLimit) external onlyOwner {
-	    require(SALE_NFT >= newLimit, "Incorrect value");
-        MAX_BY_MINT_IN_TRANSACTION_PRESALE = newLimit;
-    }
-	
-	function updateMintLimitPerTransectionSale(uint256 newLimit) external onlyOwner {
-	    require(SALE_NFT >= newLimit, "Incorrect value");
-        MAX_BY_MINT_IN_TRANSACTION_SALE = newLimit;
+	function updateTotalSupply(uint256 newSupply) external onlyOwner {
+	    require(newSupply >= TOTALSUPPLY, "Incorrect value");
+        TOTALSUPPLY = newSupply;
     }
 	
 	function updateMerkleRoot(bytes32 newRoot) external onlyOwner {

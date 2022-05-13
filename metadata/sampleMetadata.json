@@ -1,0 +1,45 @@
+{
+	"name": "Digital Kidney 1",
+	"description": "
+      Created by 
+      OlegTeterin
+      Your kidneys filter out wastes to keep your body healthy. The kidneys do this by filtering blood and producing urine. Without your kidneys, waste can build up in your blood and make you sick. Therefore, it’s important to take care of your kidneys by drinking plenty of water every day.
+      
+      This item represents that our life is fragile and depends on the condition of our vital organs. There are 78 organs, part of them essential to our lifespan. As part of biotech community, powered by proprietary AI & Computer Vision solutions, we recommend all humans to track their health as frequent as they can (ideally once per month by more than 20 bio parameters, ideally 400). This digital piece illustrates that you should track your heart first. We say - Track Early - Live Longer!
+      
+      We plan to split equally the raised funds between all applied longevity organizations. We have chosen 2 longevity focused organizations for funds split: UK's MD www.oliverzolman.com, Ireland's www.longevityclinicireland.com and pending from 5 more internationally known longevity related organizations.
+      
+      Though anti-aging research is important, the only existing extending life solution today is to stay healthy, not to get sick, or catch disease at a preclinical stage. Rest initiatives can result in something actually working, hopefully, within 10+ years. Today if the person will be diagnosed in 1-2 stages of the disease, though many doctors consider it as luck, we say it's late, because side effects of the fight for life will "cut" 10+ years from active life.
+      
+      To resolve this problem, here comes Longevity InTime, which developed patent pending remote technology of pre clinical diagnosis of top 20 diseases with 400+ biomarkers tracking, powered by AI & Big Data. Method is based on permanent gadgets & omics profile screenings of changes in a person's vital parameters, predicting risks & personalized recommendations on how to avoid predicted risks. This method can prolong active lifespan by 20 years.
+      
+      InTime BioTech LLC (doing business as Longevity InTime) is a Delaware, USA 4 verticals longevity & anti-aging company.
+      
+      As the core product of all verticals - a patent pending science based AI technology for online early stages of severe diseases tracking, that can prolong active life by 20 years, reverse & slow aging.
+      
+      Our scientists believe that until anti-aging drugs are developed & tested for side effects (in 10-20 years), the only real longevity solution that exists today for upcoming decades - is to catch the disease on the stage that can direct humans' trajectory of life in the right way. This can be done by permanent remote tracking of changes in your quality of life essential parameters with existing gadgets & using proprietary AI & Big Data methods to give a second opinion on your lifespan.
+      
+      Our 2 years of research, 1 year of software development, 150+ team members who believed in this technology and signed vesting contracts, with the best 40 of them working every day, making almost 0$ burn rate & 15+ months runaway, first 7K downloads from early adopters of proprietary apps & 115K premature daily deaths worldwide (due to “oversleeping” diseases development) prove that we are on the right track building what people need with less risks going out of business.
+      
+      For low end users we develop mobile apps tracking solutions linked to proprietary AI & Big Data powered software, which gives remotely a second opinion on the changes in users healthstate. Mobile beta app BMI Disease Tracker (for Android) released on Google Play. www.intime.digital
+      
+      For medical institutions we develop SAAS products with a clinical decision support system (CDSS). 5 AI powered prediction models on heart attack, stroke, diabetes, prostate cancer & mammary glands cancer are implemented and can be showcased. First 60,000 depersonalized dataset was shared by MIT (USA). 3 patents on methods filed: diseases prediction, structuring medical data & AI simulations of clinical trials on humans.
+      
+      For high end users - we offer lifetime tracking through longevity scientific location. Our company has participated in the Maldives auction for a right for 50 years lease agreement on the 5,5 hectares exclusive island. https://www.LongevityScientificResort.com
+      
+      For the general audience, donators & private investors - proprietary cryptocurrency was recently launched https://www.LongevityCoin.org
+      
+      As a non profit longevity advocacy we launched 31 petitions on 16 languages in 31 countries (221 to go): https://www.intime.digital/ru/petitions/
+      
+      You are welcome to join us and bring this company to another level, so 100+ years of life would become as real as space travel.
+      
+      Oleg Teterin Founder of Longevity InTime
+  ",
+	"image": "",
+  "seller_fee_basis_points": 0,
+  "fee_recipient": "0xe0b66F4550C5aa4dc4dF333529Ce4932389d1d36",
+	"attributes": [
+    {"trait_type": "Author", "value": "Oleg Teterin"},
+		{"trait_type": "Organ", "value": "Kidney" }
+	]
+}
