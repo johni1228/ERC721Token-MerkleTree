@@ -15,5 +15,9 @@
     "hardhat": "^2.9.3",
     "hardhat-gas-reporter": "^1.0.8",
     "solidity-coverage": "^0.7.21"
+  },
+  "dependencies": {
+    "keccak256": "^1.0.6",
+    "merkletreejs": "^0.2.31"
   }
 }
