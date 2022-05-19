@@ -363,7 +363,7 @@ contract AALC is ERC721Enum, Ownable, ReentrancyGuard{
 		);
 		require(msg.value >= PRICE, "Value below price");
 
-    _safeMint(msg.sender, totalSupply);
+    _safeMint(msg.sender, totalSupply + 1);
         
   }
 	

@@ -359,14 +359,14 @@ contract DCLC is ERC721Enum, Ownable, ReentrancyGuard{
 		bytes32 node = keccak256(abi.encodePacked(msg.sender));
 		uint256 totalSupply = totalSupply();
 
-    require(totalSupply + 1 <= TOTALSUPPLY, "Exceeds max limit");
-		require(
-			MerkleProof.verify(merkleProof, merkleRoot, node), 
-			"MerkleDistributor: Invalid proof."
-		);
-		require(msg.value >= PRICE, "Value below price");
+        require(totalSupply + 1 <= TOTALSUPPLY, "Exceeds max limit");
+            require(
+                MerkleProof.verify(merkleProof, merkleRoot, node), 
+                "MerkleDistributor: Invalid proof."
+            );
+            require(msg.value >= PRICE, "Value below price");
 
-    _safeMint(msg.sender, totalSupply);
+        _safeMint(msg.sender, totalSupply + 1);
         
   }
 	
